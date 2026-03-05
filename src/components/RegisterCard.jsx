@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import Input from '../components/Input';
-import Button from '../components/Button';
+import Input from './Input';
+import Button from './Button';
 import googleIcon from '../assets/images/google-icon.png';
 import idFlag from '../assets/images/Indonesia(ID).png';
 
