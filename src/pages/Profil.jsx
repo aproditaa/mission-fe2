@@ -10,11 +10,31 @@ import ppIcon from '../assets/images/pp-icon.jpeg';
 export default function Profil() {
   const navigate = useNavigate();
   
+  const [userData, setUserData] = useState({
+    fullName: "Katarina",
+    email: "katarinablu@gmail.com",
+    phone: "81234567890",
+    gender: "Perempuan",
+  });
+
+  const [tempData, setTempData] = useState(userData);
+
   const menuItems = [
     { name: "Profil Saya", icon: iconUser, path: "/profil" },
     { name: "Kelas Saya", icon: iconClass, path: "/kelas-saya" },
     { name: "Pesanan Saya", icon: iconOrder, path: "/pesanan" },
   ];
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setTempData({ ...tempData, [name]: value });
+  };
+
+  const handleSave = (e) => {
+    e.preventDefault();
+    setUserData(tempData); // Data diperbarui
+    alert("Profil berhasil diperbarui!");
+  };
 
   return (
     <div className="bg-[#FFFDF3] min-h-screen font-sans text-[#222222]">
@@ -49,20 +69,23 @@ export default function Profil() {
           <div className="flex items-start gap-4 border border-[#E5E5E5] rounded-xl p-4 w-full lg:max-w-[344px] h-[100px]">
             <img src={ppIcon} className="w-[60px] h-[60px] lg:w-[70px] lg:h-[70px] rounded-lg object-cover" alt="Profile" />
             <div className="flex flex-col justify-center h-full">
-              <h4 className="font-bold text-[16px] leading-tight">Katarina</h4>
-              <p className="text-[#737373] text-[13px] mt-1">katarinablu@gmail.com</p>
+              <h4 className="font-bold text-[16px] leading-tight">{userData.fullName}</h4>
+              <p className="text-[#737373] text-[13px] mt-1">{userData.email}</p>
               <button className="text-[#FF4D4D] text-[11px] font-bold text-left mt-1 hover:underline">Ganti Foto Profil</button>
             </div>
           </div>
 
-          <form className="flex flex-col gap-[24px]">
+          <form onSubmit={handleSave} className="flex flex-col gap-[24px]">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-4 gap-y-8">
+              
               <div className="relative">
                 <label className="lg:hidden block text-[14px] text-[#737373] mb-2">Nama Lengkap</label>
                 <div className="relative">
                   <input 
                     type="text" 
-                    defaultValue="Katarina"
+                    name="fullName"
+                    value={tempData.fullName}
+                    onChange={handleChange}
                     className="w-full border border-[#3ECF4C] rounded-lg px-4 py-2.5 text-[14px] focus:outline-none"
                   />
                   <span className="hidden lg:block absolute -top-2 left-3 bg-white px-1 text-[10px] text-[#3ECF4C] font-semibold">Nama Lengkap</span>
@@ -74,7 +97,9 @@ export default function Profil() {
                 <div className="relative">
                   <input 
                     type="email" 
-                    defaultValue="katarinablu@gmail.com"
+                    name="email"
+                    value={tempData.email}
+                    onChange={handleChange}
                     className="w-full border border-[#E5E5E5] rounded-lg px-4 py-2.5 text-[14px] focus:outline-none"
                   />
                   <span className="hidden lg:block absolute -top-2 left-3 bg-white px-1 text-[10px] text-[#737373] font-semibold">E-Mail</span>
@@ -89,7 +114,9 @@ export default function Profil() {
                   </div>
                   <input 
                     type="text" 
-                    defaultValue="81234567890"
+                    name="phone"
+                    value={tempData.phone}
+                    onChange={handleChange}
                     className="flex-1 border border-[#E5E5E5] rounded-r-lg px-4 py-2.5 text-[14px] focus:outline-none"
                   />
                   <span className="hidden lg:block absolute -top-2 left-3 bg-white px-1 text-[10px] text-[#737373] font-semibold">No. HP</span>
@@ -99,29 +126,22 @@ export default function Profil() {
               <div className="lg:hidden flex flex-col gap-2">
                 <label className="text-[14px] text-[#737373]">Jenis Kelamin</label>
                 <div className="relative">
-                  <select className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-[14px] appearance-none bg-white">
-                    <option>Perempuan</option>
-                    <option>Laki-laki</option>
+                  <select 
+                    name="gender"
+                    value={tempData.gender}
+                    onChange={handleChange}
+                    className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-[14px] appearance-none bg-white"
+                  >
+                    <option value="Perempuan">Perempuan</option>
+                    <option value="Laki-laki">Laki-laki</option>
                   </select>
                   <span className="absolute right-4 top-4 text-[10px] opacity-40">▼</span>
                 </div>
               </div>
-
-              <div className="lg:hidden flex flex-col gap-2 relative">
-                <label className="text-[14px] text-[#737373]">Password</label>
-                <input type="password" defaultValue="howyoulikethat" className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-[14px]" />
-                <span className="absolute right-4 top-[42px] opacity-40">👁️</span>
-              </div>
-
-              <div className="lg:hidden flex flex-col gap-2 relative">
-                <label className="text-[14px] text-[#737373]">Konfirmasi Password</label>
-                <input type="password" defaultValue="howyoulikethat" className="w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-[14px]" />
-                <span className="absolute right-4 top-[42px] opacity-40">👁️</span>
-              </div>
             </div>
 
             <div className="flex justify-end mt-2">
-              <button className="bg-[#3ECF4C] text-white px-10 py-2.5 rounded-lg font-bold text-[14px] hover:bg-[#32b140] transition-colors w-full lg:w-auto">
+              <button type="submit" className="bg-[#3ECF4C] text-white px-10 py-2.5 rounded-lg font-bold text-[14px] hover:bg-[#32b140] transition-colors w-full lg:w-auto">
                 Simpan
               </button>
             </div>
