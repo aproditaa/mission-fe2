@@ -2,9 +2,14 @@ import PropTypes from 'prop-types';
 import ratingIcon from '../assets/images/rating.png';
 import { Link } from 'react-router-dom';
 
-export default function CourseCard({ course }) {
+export default function CourseCard({ course, isGuest }) {
+  
+  const detailPath = isGuest 
+    ? `/detail-produk-guest/${course.id}` 
+    : `/courses/${course.id}`;
+
   return (
-    <Link to={`/courses/${course.id}`} className="block">
+    <Link to={detailPath} className="block">
       <div className="bg-white border border-[#F1F1F1] rounded-[10px] flex flex-row md:flex-col w-[320px] md:w-[384px] h-[147px] md:h-[426px] p-[16px] md:p-[20px] gap-[8px] md:gap-[16px] transition-shadow hover:shadow-md overflow-hidden">
         
         <div className="shrink-0">
@@ -16,9 +21,7 @@ export default function CourseCard({ course }) {
         </div>
 
         <div className="flex flex-col flex-grow md:justify-between overflow-hidden">
-          
           <div className="flex flex-col gap-[4px] md:gap-[8px] h-full">
-            
             <div className="flex flex-col gap-[4px] md:gap-[8px]">
               <h3 className="font-poppins font-bold text-[#222222] text-[14px] md:text-[18px] leading-tight md:leading-snug line-clamp-2">
                 {course.title}
@@ -55,12 +58,10 @@ export default function CourseCard({ course }) {
                   ({course.rating})
                 </span>
               </div>
-              
               <p className="text-[#3ECF4C] font-bold text-[14px] md:text-[22px]">
                 {course.price}
               </p>
             </div>
-
           </div>
         </div>
       </div>
@@ -69,6 +70,7 @@ export default function CourseCard({ course }) {
 }
 
 CourseCard.propTypes = {
+  isGuest: PropTypes.bool, 
   course: PropTypes.shape({
     id: PropTypes.number,
     image: PropTypes.string,
