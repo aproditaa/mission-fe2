@@ -3,6 +3,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import BerandaGuest from './pages/BerandaGuest';
 import SemuaProdukGuest from './pages/SemuaProdukGuest';
+import DetailProdukGuest from './pages/DetailProdukGuest';
 import Beranda from './pages/Beranda';
 import SemuaProduk from './pages/SemuaProduk';
 import DetailProduk from './pages/DetailProduk';
@@ -26,6 +27,7 @@ function App() {
       <Routes>
         <Route path="/" element={<BerandaGuest />} />
         <Route path="/semua-produk-guest" element={<SemuaProdukGuest />} />
+        <Route path="/detail-produk-guest/:id" element={<DetailProdukGuest />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/beranda" element={<Beranda />} />

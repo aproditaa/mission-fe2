@@ -4,9 +4,11 @@ import Footer from '../components/Footer';
 import CourseCard from '../components/CourseCard';
 import Pagination from '../components/Pagination';
 import { courses } from '../data/courses';
+import { useNavigate } from 'react-router-dom';
 import chevronIcon from '../assets/images/vector3.png';
 
 export default function SemuaProdukGuest() {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSubCat, setSelectedSubCat] = useState([]);
   const [showOnlyDiscount, setShowOnlyDiscount] = useState(false);
@@ -155,7 +157,13 @@ export default function SemuaProdukGuest() {
               <>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   {currentCourses.map((course) => (
-                    <CourseCard key={course.id} course={course} hideDescription={true} />
+                    <div 
+                      key={course.id} 
+                      onClick={() => navigate(`/detail-produk-guest/${course.id}`)}
+                      className="cursor-pointer transition-transform hover:scale-[1.02]"
+                    >
+                      <CourseCard course={course} hideDescription={true} />
+                    </div>
                   ))}
                 </div>
                 <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={(page) => setCurrentPage(page)} />
